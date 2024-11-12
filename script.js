@@ -34,7 +34,7 @@ function runAnimationStart(){
 
 jumpImageNumber = 1;
 jumpAnimationNumber = 0;
-boyMarginTop = 559;
+boyMarginTop = 589;
 
 function jumpAnimation(){
 
@@ -103,13 +103,18 @@ var keyCode = event.which;
 var backgroundImagePositionX = 0;
 var moveBackgroundAnimationId = 0;
 
+var score = 0;
+
 function moveBackground(){
     backgroundImagePositionX = backgroundImagePositionX - 20;
 
     document.getElementById("background").style.backgroundPositionX = backgroundImagePositionX + "px";
+
+    score = score + 1;
+    document.getElementById("score").innerHTML = score;
 }
 
-boxMarginLeft = 2440;
+boxMarginLeft = 2140;
 
 function createBoxes(){
 
@@ -144,7 +149,7 @@ function boxAnimation(){
         box.style.marginLeft = newMarginLeft + "px";
 
         if(newMarginLeft >= -110 & newMarginLeft <= 100){
-            if(boyMarginTop > 300){
+            if(boyMarginTop > 580){
                 clearInterval(boxAnimationId);
         
                 clearInterval(runAnimationNumber);
@@ -155,8 +160,28 @@ function boxAnimation(){
         
                 clearInterval(moveBackgroundAnimationId);
                 moveBackgroundAnimationId = -1;
+
+                deadAnimationNumber = setInterval(boyDeadAnimation, 100);
             }
          }
     }
+}
+
+deadImageNumber = 1;
+deadAnimationNumber = 0;
+function boyDeadAnimation(){
+    deadImageNumber = deadImageNumber + 1;
+    if(deadImageNumber == 11){
+        deadImageNumber = 10;
+
+        document.getElementById("end").style.visibility = "visible";
+        document.getElementById("endScore").innerHTML = score;
+    }
+
+    boy.src = "assets/Dead ("+deadImageNumber+").png";
+}
+
+function reload(){
+    location.reload();
 }
 
